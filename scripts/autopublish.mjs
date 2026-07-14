@@ -7,27 +7,13 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { slug, CATEGORIES } from "./lib.mjs";
+import { gatherFacts } from "./fetch-facts.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ARTICLES = join(ROOT, "content", "articles");
 const today = process.env.BUILD_DATE || new Date().toISOString().slice(0, 10);
 const AUTHOR = process.env.AUTHOR || "데이터룸";
 const VALID_CATS = new Set(CATEGORIES.map((c) => c.slug));
-
-const readJson = async (p) => JSON.parse(await readFile(join(ROOT, p), "utf8"));
-
-// 실데이터(공정위 오픈API/보도자료 RSS) 연동 자리. 미설정 시 sample-facts 폴백.
-async function gatherFacts() {
-  const sources = await readJson("data/sources.json");
-  const key = process.env.DATA_API_KEY || (sources.publicData && sources.publicData.apiKey);
-  const endpoint = sources.publicData && sources.publicData.endpoint;
-  if (sources.publicData && sources.publicData.enabled && endpoint && key) {
-    // TODO(구현 단계): fetch(endpoint + key) → facts 배열로 정규화. 엔드포인트 스펙 검증 후 연동.
-    console.log("ℹ 실데이터 키 감지 — 단 이 버전은 실 fetch 미구현 → 샘플 폴백");
-  }
-  const sample = await readJson(sources.sampleFallback || "data/sample-facts.json");
-  return { facts: sample.facts || [], isSample: true };
-}
 
 // ---------- 템플릿 사실 브리핑 (결정론적, 환각 없음) ----------
 function briefBody(fact) {
