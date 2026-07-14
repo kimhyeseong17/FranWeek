@@ -26,7 +26,7 @@ async function gatherFacts() {
     console.log("ℹ 실데이터 키 감지 — 단 이 버전은 실 fetch 미구현 → 샘플 폴백");
   }
   const sample = await readJson(sources.sampleFallback || "data/sample-facts.json");
-  return sample.facts || [];
+  return { facts: sample.facts || [], isSample: true };
 }
 
 // ---------- 템플릿 사실 브리핑 (결정론적, 환각 없음) ----------
@@ -72,7 +72,18 @@ function gate(fact, body) {
 
 async function main() {
   await mkdir(ARTICLES, { recursive: true });
-  const facts = await gatherFacts();
+  const { facts, isSample } = await gatherFacts();
+
+  // 운영 안전장치: 실데이터가 연결되기 전(샘플 폴백)에는 발행하지 않는다.
+  // 로컬 테스트만 ALLOW_SAMPLE=1 로 샘플 발행 허용.
+  if (isSample && process.env.ALLOW_SAMPLE !== "1") {
+    console.log("ℹ 실데이터 미연결(샘플 폴백) → 발행하지 않음. 운영 사이트에 예시 데이터가 올라가지 않도록 보호합니다.");
+    console.log("   실데이터 연결: data/sources.json + DATA_API_KEY + gatherFacts() fetch 구현.");
+    console.log("   로컬 테스트: ALLOW_SAMPLE=1 node scripts/autopublish.mjs");
+    console.log("완전자동 발행 완료 — 발행 0 · (샘플 스킵)");
+    return;
+  }
+
   let published = 0, deduped = 0, blocked = 0;
 
   for (const fact of facts) {
