@@ -112,6 +112,8 @@ header.top{position:sticky;top:0;z-index:50;background:var(--brand);border-botto
 header.top .bar{display:flex;align-items:center;justify-content:space-between;height:56px}
 .logo{font-family:Georgia,'Times New Roman','Nanum Myeongjo','Batang',serif;font-size:22px;font-weight:800;letter-spacing:-.01em;color:#fff;display:inline-flex;align-items:center;white-space:nowrap}
 .logo b{color:#fff;margin-left:8px;padding-left:8px;border-left:2px solid var(--brand-d);font-weight:800}
+.logo-en{font-family:Georgia,'Times New Roman',serif;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9fb0cf;margin-left:9px;align-self:flex-end;padding-bottom:4px}
+@media (max-width:560px){.logo-en{display:none}}
 nav.gnb{display:flex;gap:2px;align-items:center}
 nav.gnb a{color:#c9d2e6;font-size:14px;font-weight:600;padding:7px 10px;border-radius:8px}
 nav.gnb a:hover{color:#fff;background:rgba(255,255,255,.1);text-decoration:none}
@@ -290,7 +292,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ""}
 </head>
 <body>
 <header class="top"><div class="wrap bar">
-  <a class="logo" href="/"><span>프랜차이즈<b>보도국</b></span></a>
+  <a class="logo" href="/"><span>프랜<b>위크</b></span><em class="logo-en">FranWeek</em></a>
   <nav class="util">
     <a href="/about.html">소개</a>
     <a href="/rss.xml">RSS</a>
