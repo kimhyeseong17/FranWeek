@@ -1,0 +1,9 @@
+[
+  { "slug": "chicken",   "name": "치킨",       "icon": "🍗", "order": 1, "desc": "치킨 프랜차이즈 출점·신메뉴·가맹 소식" },
+  { "slug": "coffee",    "name": "커피·디저트", "icon": "☕", "order": 2, "desc": "카페·디저트 브랜드 동향과 창업 정보" },
+  { "slug": "burger",    "name": "버거·패스트푸드", "icon": "🍔", "order": 3, "desc": "버거·패스트푸드 프랜차이즈 소식" },
+  { "slug": "bunsik",    "name": "분식·한식",   "icon": "🍜", "order": 4, "desc": "분식·한식 프랜차이즈 창업과 트렌드" },
+  { "slug": "recruit",   "name": "가맹모집",     "icon": "📢", "order": 5, "desc": "브랜드별 가맹점 모집·설명회 소식" },
+  { "slug": "industry",  "name": "업계동향",     "icon": "📈", "order": 6, "desc": "외식 프랜차이즈 시장·통계·이슈 분석" },
+  { "slug": "policy",    "name": "정책·제도",    "icon": "⚖️", "order": 7, "desc": "가맹사업법·공정위 제도 등 정책 뉴스" }
+]

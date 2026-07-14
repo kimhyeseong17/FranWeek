@@ -1,0 +1,23 @@
+{
+  "_comment": "데일리 취합(collect.mjs)이 사용할 소스 정의. 안전 소스만 사용한다: (1) 공개 사실·통계(저작권 대상 아님) (2) 배포 목적 보도자료. 남의 기사 본문을 복제·리라이팅하지 않는다. 아래 endpoint/apiKey가 비어 있으면 collect.mjs는 data/sample-facts.json 기반 샘플 초안으로 폴백한다(사이트·파이프라인은 키 없이도 동작).",
+
+  "publicData": {
+    "_comment": "공정거래위원회 가맹사업거래 정보공개서 = 브랜드·가맹점수·창업비용 등 공개 통계(저작권 없음). 공공데이터포털(data.go.kr)에서 '가맹사업' 검색해 오픈API 신청 후 endpoint/apiKey 입력. 미검증 상태이므로 구현·연동 단계에서 실제 스펙 확인 필요.",
+    "enabled": false,
+    "name": "공정거래위원회 가맹사업거래 정보공개서",
+    "landing": "https://franchise.ftc.go.kr",
+    "endpoint": "",
+    "apiKey": ""
+  },
+
+  "pressReleases": [
+    {
+      "_comment": "본사/브랜드가 배포 목적으로 낸 보도자료 RSS만 등록한다. 뉴스와이어 등 보도자료 배포 채널의 카테고리 RSS. 실제 URL은 연동 단계에서 확인·등록.",
+      "enabled": false,
+      "name": "뉴스와이어 - 유통/외식 보도자료",
+      "rss": ""
+    }
+  ],
+
+  "sampleFallback": "data/sample-facts.json"
+}

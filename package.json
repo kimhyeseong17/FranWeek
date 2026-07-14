@@ -1,0 +1,16 @@
+{
+  "name": "franchise-news",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "프랜차이즈 보도국 — 외식 프랜차이즈 반자동 뉴스 사이트 (사실·보도자료 기반, 의존성 0 정적 생성기)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node scripts/build.mjs && node scripts/serve.mjs",
+    "autopublish": "node scripts/autopublish.mjs",
+    "collect": "node scripts/collect.mjs",
+    "draft": "node scripts/draft.mjs",
+    "review": "node scripts/review.mjs"
+  }
+}

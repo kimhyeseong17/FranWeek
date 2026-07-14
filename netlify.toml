@@ -1,0 +1,12 @@
+# Netlify 배포 설정 — git push 시 자동 빌드 (의존성 0)
+[build]
+  command = "node scripts/build.mjs"   # content/articles/*.md(published) → dist/ 정적 생성
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"

@@ -1,0 +1,44 @@
+# 완전 자동 발행 — 주기적으로 데이터 브리핑을 생성·발행하고 커밋·푸시한다.
+# 푸시되면 Netlify가 자동으로 빌드·배포한다(별도 배포 단계 불필요).
+name: auto-publish
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # 6시간마다 (UTC). 필요시 주기 조정.
+  workflow_dispatch: {}      # 수동 실행 버튼
+
+permissions:
+  contents: write            # 생성된 기사 커밋·푸시 권한
+
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 자동 발행 (취합 → 템플릿 브리핑 → 품질 게이트 → published)
+        run: node scripts/autopublish.mjs
+        env:
+          # 실데이터 사용 시: 저장소 Settings → Secrets 에 DATA_API_KEY 등록
+          # (공공데이터포털 공정위 가맹사업 API 키). 미설정이면 sample-facts 폴백.
+          DATA_API_KEY: ${{ secrets.DATA_API_KEY }}
+
+      - name: 변경분 커밋·푸시 (새 기사 있을 때만)
+        run: |
+          git config user.name "franchise-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/articles
+          if git diff --cached --quiet; then
+            echo "새 기사 없음 — 커밋 생략"
+          else
+            git commit -m "auto: 데이터 브리핑 발행 ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git push
+          fi
